@@ -257,12 +257,80 @@ prestarLibro(9,1);
 devolverlibro (9,1);
 devolverlibro (2,4);
 
-console.table(libros)
-console.table(usuarios)
+console.table(libros);
+console.table(usuarios);
+   
+//5. Reportes
+//a) Crear una función generarReporteLibros() que utilice métodos avanzados de arrays (.map(), .filter(), .reduce()) para generar un reporte con la siguiente información:
+//✓ Cantidad total de libros. ✓ Cantidad de libros prestados. ✓ Cantidad de libros por género. ✓ Libro más antiguo y más nuevo.
+
+
+function generarReporteLibros() {
+
+    let cantidadTotalLibros = libros.reduce(function(acumulador){           //Uso reduce para contar los libros del array.      
+        return acumulador + 1;                                              //Dice acumulador porque cuando usamos el metodo reduce, necesitamos ese acumulador para ir guardando lo elementos que se van contando.
+    }, 0);
+
+    console.log(`La cantidad total de libros es: ${cantidadTotalLibros} `); 
+
+    let cantidadLibrosPrestados = libros.filter(function(libro){
+        return libro.disponible === false;
+    });
+
+    console.log(`La cantidad de libros prestados es: ${cantidadLibrosPrestados.length} `); 
+ 
+
+    let géneros = ["Ficción", "Novela", "Clásico"];                    // cree un array con los tipos de generos que estan en el array Libros.
+        let cantidadLibrosGénero = géneros.forEach(function (género) {
+        let cantidad = libros.filter(function (libro) {
+          return libro.género === género;
+        }).length;
+       
+        console.log( `La cantidad de libros por género es:  género + ": " + cantidad + " libros"`);   //PENDIENTE CONSEGUIR QUE SE MUESTRE BIEN EL MENSAJE
+        });
+
+            
+        
+
+        
+    }
+
+
+generarReporteLibros();
+
+
    
 
 
+//node trabajoPracticoIntegrador_AvilaRosa.js 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//6. Identificación Avanzada de libros
+//a) Implementar una función librosConPalabrasEnTitulo() que identifique y muestre todos los libros cuyo título contiene más de una palabra
+//(no títulos que contengan números ni otros caracteres).
+//b) La función debe devolver un array con los títulos de esos libros y
+//mostrarlo en la consola.
