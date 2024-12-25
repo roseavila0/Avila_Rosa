@@ -1,7 +1,5 @@
 const prompt = require('prompt-sync')();
 
-//node trabajoPracticoIntegrador_AvilaRosa.js BORRA AL FINAL!!
-
 //1. ESTRUCTURA DE DATOS
 //a) Crear un array de objetos llamado libros que contenga al menos 10 libros. Cada libro debe tener las siguientes propiedades:
 //✓ id (número) ✓ título (string) ✓ autor (string) ✓ año (número) ✓ género (string) ✓ disponible (booleano).
@@ -16,7 +14,7 @@ let libros = [
     {id: 6, título: "El lobo estepario", autor: "Hermann Hesse", año: 1927, género: "Novela", disponible: false},
     {id: 7, título: "La metamorfosis", autor: "Franz Kafka", año: 1915, género: "Novela corta", disponible: true},
     {id: 8, título: "El fantasma de Canterville", autor: "Oscar Wilde", año: 1887, género: "Cuento gótico humrístico", disponible: true},
-    {id: 9, título: "Los miserables", autor: "Víctor Hugo", año: 2862, género: "Novela", disponible: false},
+    {id: 9, título: "Los miserables", autor: "Víctor Hugo", año: 1862, género: "Novela", disponible: false},
     {id: 10, título: "Sobre la fotografía", autor: "Susan Sontag", año: 1977, género: "Ensayo", disponible: true}
 ];
 
@@ -260,7 +258,7 @@ devolverlibro (2,4);
 console.table(libros);
 console.table(usuarios);
    
-//5. Reportes
+//5. REPORTES
 //a) Crear una función generarReporteLibros() que utilice métodos avanzados de arrays (.map(), .filter(), .reduce()) para generar un reporte con la siguiente información:
 //✓ Cantidad total de libros. ✓ Cantidad de libros prestados. ✓ Cantidad de libros por género. ✓ Libro más antiguo y más nuevo.
 
@@ -280,26 +278,83 @@ function generarReporteLibros() {
     console.log(`La cantidad de libros prestados es: ${cantidadLibrosPrestados.length} `); 
  
 
-    let géneros = ["Ficción", "Novela", "Clásico"];                    // cree un array con los tipos de generos que estan en el array Libros.
-        let cantidadLibrosGénero = géneros.forEach(function (género) {
-        let cantidad = libros.filter(function (libro) {
-          return libro.género === género;
-        }).length;
-       
-        console.log( `La cantidad de libros por género es:  género + ": " + cantidad + " libros"`);   //PENDIENTE CONSEGUIR QUE SE MUESTRE BIEN EL MENSAJE
+ 
+        
+    console.log("La cantidad de libros por género es:");
+    
+        
+    let géneros = [...new Set(libros.map(function(libro) {      //Aqui uso el método new Set() se utiliza para crear un conjunto (set), que almacena solo valores únicos.
+        return libro.género;
+        }))];
+    
+        géneros.forEach(function(género) {
+            let cantidad = libros.filter(function(libro) {
+                return libro.género === género; // Filtramos por cada género
+            }).length;
+            console.log(`"${género}": ${cantidad}`);
         });
-
-            
-        
-
-        
     }
+    
+    
+  
+    let libroAntiguoYNuevo = libros.reduce(function(acumulador, libro) {
+
+        if (libro.año < acumulador.masAntiguo.año) {
+            acumulador.masAntiguo = libro;
+        }
+  
+        if (libro.año > acumulador.masNuevo.año) {
+            acumulador.masNuevo = libro;
+        }
+        return acumulador;
+        },
+
+        {
+        masAntiguo: libros[0], 
+        masNuevo: libros[0]  
+    });
 
 
 generarReporteLibros();
+console.log("Reporte de Libros:");
+console.log("Libro más antiguo:");
+console.table(libroAntiguoYNuevo.masAntiguo);
+console.log("Libro más nuevo:");
+console.table(libroAntiguoYNuevo.masNuevo);
 
 
-   
+
+//6. IDENTIFICACIÓN AVANZADA DE LIBROS
+//a) Implementar una función librosConPalabrasEnTitulo() que identifique y muestre todos los libros cuyo título contiene más de una palabra
+//(no títulos que contengan números ni otros caracteres).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//b) La función debe devolver un array con los títulos de esos libros y
+//mostrarlo en la consola.
+
+
+
+
+
+
+
+
 
 
 //node trabajoPracticoIntegrador_AvilaRosa.js 
@@ -329,8 +384,16 @@ generarReporteLibros();
 
 
 
-//6. Identificación Avanzada de libros
-//a) Implementar una función librosConPalabrasEnTitulo() que identifique y muestre todos los libros cuyo título contiene más de una palabra
-//(no títulos que contengan números ni otros caracteres).
-//b) La función debe devolver un array con los títulos de esos libros y
-//mostrarlo en la consola.
+
+//7. Cálculos Estadísticos
+//a) Desarrollar una función calcularEstadisticas() que utilice el objeto
+//Math para calcular y mostrar:
+//✓ Promedio de años de publicación de los libros.  ✓ Año de publicación más frecuente.  ✓ Diferencia en años entre el libro más antiguo y el más nuevo.
+
+//8. Manejo de Cadenas
+//a) Crear una función normalizarDatos() que utilice métodos de strings para:
+//✓ Convertir todos los títulos a mayúsculas. ✓ Eliminar espacios en blanco al inicio y final de los nombres de autores. ✓ Formatear los emails de los usuarios a minúsculas.
+
+//9. Interfaz de Usuario por Consola
+//a) Implementar una función menuPrincipal() que muestre un menú de opciones al usuario y permita interactuar con el sistema utilizando prompt().
+//b) El menú debe incluir opciones para todas las funcionalidades anteriores y utilizar estructuras de control (if, switch, ciclos) para manejar la lógica.
