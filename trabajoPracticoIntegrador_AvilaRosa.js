@@ -41,18 +41,20 @@ function agregarLibro (id, titulo, autor, anio, genero) {
 }
 
 agregarLibro(11, "Cien años de soledad", "Gabriel García Márquez", 1967, "Novela");
-console.log(libros);
+console.table (libros);     
+//yo se que console.table no vimos en clase pero busque en internet una forma más ordenado de mostrar ciertas parte y lo encontre. He ido alternando entre console.log y console.table
+// para mostrar las listas(arrays). También probé con consol.dir pero en cambio todo se hacia demasiado compacto y decidí no usarlo.
 
 //b) Crear una función buscarLibro(criterio, valor) que permita buscar libros por título, autor o género utilizando el algoritmo de búsqueda lineal.
 function buscarLibro(criterio, valor){
     for (let i=0 ; i < libros.length; i++){
         if (libros[i][criterio] === valor){
-            console.log("Libro encontrado: ");
-            console.log(libros[i]);
+            console.log("Libro encontrado: "); 
+            console.table(libros[i]);                    
             return;
            }
     }
-    console.log ("Libro no encontrado.");
+    console.log (`El libro "${valor}" no se encuentra en nuestra lista.` );
 }
     
 
@@ -79,11 +81,11 @@ function ordenarLibros (criterio){
         }
     }
     console.log(`Libros ordenados por "${criterio}":`);
-    console.log(libros);
+    console.table(libros);  
 }
 
 ordenarLibros("título");  
-//ordenarLibros("año"); 
+ordenarLibros("año"); 
 
 
 //d) Desarrollar una función borrarLibro(id) que elimine el libro que se le pase por parámetro.
@@ -103,7 +105,7 @@ function borrarLibro(id) {
 
 borrarLibro(3);
 borrarLibro(14);
-console.log(libros)
+console.table(libros); 
 
 
 
@@ -126,7 +128,7 @@ registrarUsuario("Leonardo", "leoC_Judo@gmail.com");
 
 function mostrarTodosLosUsuarios () {
     console.log("Los usuarios registrados son: ");
-    console.log(usuarios);
+    console.table(usuarios); //-----------------------------------
 }
 
 mostrarTodosLosUsuarios();
@@ -141,7 +143,7 @@ function buscarUsuario(email) {
     
     if (encontrarUsuario){
         console.log ("El usuario ha sido encontrado y su información completa es: ");
-        console.log (encontrarUsuario);
+        console.table (encontrarUsuario);
         return encontrarUsuario;
     } else {
         console.log(`El usuario ${email} no ha sido encontrado`);
@@ -171,9 +173,93 @@ function borrarUsuario(nombre, email) {
 
 borrarUsuario("Alanna", "alanna@gmail.com");
 borrarUsuario("Rose", "rose_94@gmail.com" );
-console.log(usuarios);
+console.table(usuarios);   
 
 
+//4. SISTEMA DE PRÉSTAMOS --------------------------------------------------------------------------------------------------------------------------------------
+//a) Desarrollar una función prestarLibro(idLibro, idUsuario) que marque un libro como no disponible y lo agregue a la lista de libros prestados
+//del usuario.
+
+function prestarLibro (idLibro, idUsuario){ 
+
+    const libroEncontrado = libros.find(function(libro){    //busco el libro en el array libros
+        return libro.id === idLibro;
+    });
+    
+    if (!libroEncontrado) {
+        console.log(`El libro con ID ${idLibro} no existe.`);
+        return;
+    }
+
+    if (!libroEncontrado.disponible){
+        console.log(`El libro "${libroEncontrado.título}" no esta disponible.`);
+        return;
+    }
+
+    const usuarioEncontrado = usuarios.find(function(usuario){
+        return usuario.id === idUsuario;
+    });
+    
+    if (!usuarioEncontrado) {
+        console.log(`El usuario con ID ${idUsuario} no existe.`);
+        return;
+    }
+
+    libroEncontrado.disponible = false;
+    usuarioEncontrado.librosPrestados.push(idLibro);
+    console.log(`El libro "${libroEncontrado.título}" ha sido prestado por el usuario ${usuarioEncontrado.nombre}".`);
+    
+}
+prestarLibro(11,6);
+prestarLibro(2,4);
+prestarLibro(1,9);
+prestarLibro(9,1);
+
+
+//b) Implementar una función devolverLibro(idLibro, idUsuario) que marque un libro como disponible y lo elimine de la lista de libros prestados del usuario.
+
+
+   function devolverlibro (idLibro, idUsuario){                             //Profe si esta leyendo esto: no se si esta bien repetir bloques pero aqui yo crei conveniente reutilizar la primera parte de la función donde se verifica el idLibro y el idUauario.
+     
+    
+    const libroEncontrado = libros.find(function(libro){
+        return libro.id === idLibro;
+    });
+    
+    if (!libroEncontrado) {
+        console.log(`El libro con ID ${idLibro} no existe.`);
+        return;
+    }
+
+    const usuarioEncontrado = usuarios.find(function (usuario) {
+        return usuario.id === idUsuario;
+    });
+
+    if (!usuarioEncontrado) {
+        console.log(`El usuario con ID ${idUsuario} no existe.`);
+        return;
+    }
+
+    if (!usuarioEncontrado.librosPrestados.includes(idLibro)) {
+        console.log(`El usuario ${usuarioEncontrado.nombre} no tiene prestado el libro con ID ${idLibro}.`);
+        return;
+    }
+
+    usuarioEncontrado.librosPrestados = usuarioEncontrado.librosPrestados.filter(function (id){    // checamos si el usuario tiene el libro prestado
+        return id !== idLibro; //
+    });
+
+    libroEncontrado.disponible = true;
+
+    console.log(`El libro "${libroEncontrado.título}" ha sido devuelto por el usuario ${usuarioEncontrado.nombre}.`);
+}
+
+devolverlibro (9,1);
+devolverlibro (2,4);
+
+console.table(libros)
+console.table(usuarios)
+   
 
 
 
