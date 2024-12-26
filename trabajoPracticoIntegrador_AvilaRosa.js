@@ -64,12 +64,13 @@ buscarLibro("género", "Novela corta");
 //muestre los libros ordenados en la consola.
 function ordenarLibros (criterio){
 
+    //verificamos el criterio
     if (criterio !== "título" && criterio !== "año"){
         console.log("Criterio no válido, ingrese 'título' o 'año' ");
         return;
     }
 
-
+    
     for (let i=0 ; i<libros.length ; i++){
         for (let j=0 ; j<libros.length - i -1; j++){
             if (libros [j][criterio] > libros[j + 1][criterio]){
@@ -281,12 +282,9 @@ function generarReporteLibros() {
 
     console.log(`La cantidad de libros prestados es: ${cantidadLibrosPrestados.length} `); 
  
-
- 
-        
+  
     console.log("La cantidad de libros por género es:");
-    
-        
+      
     let géneros = [...new Set(libros.map(function(libro) {      
         //Aqui uso el método new Set() se utiliza para crear un conjunto (set), que almacena solo valores únicos.
         return libro.género;
@@ -336,7 +334,7 @@ console.table(libroAntiguoYNuevo.masNuevo);
 
 function librosConPalabrasEnTitulo() {  
 
-let títulosPermitidos = libros.filter(function(libro){
+let títulosPermitidos = libros.filter(function(libro){ 
 let títulosPalabras = libro.título.split(" ");
 let tieneMasDeUnaPalabra = títulosPalabras.length > 1;
 
@@ -372,7 +370,7 @@ librosConPalabrasEnTitulo()
 
 
 
-//node trabajoPracticoIntegrador_AvilaRosa.js
+
 
 
 
