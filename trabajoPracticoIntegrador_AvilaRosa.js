@@ -28,20 +28,20 @@ let usuarios = [
     {id: 5, nombre: "Rose",  email: "rose_94@gmail.com", librosPrestados: [6, 8]},
 ];
 
-//2. FUNCIONES DE GESTIÓN DE LIBROS --------------------------------------------------------------------------------------------------------------
+//2. FUNCIONES DE GESTIÓN DE LIBROS --------------------------------------------------------------------------------------------------------------------------------
 // a) Implementar una función agregarLibro(id, titulo, autor, anio, genero) que agregue un nuevo libro al array libros.
 
 
 function agregarLibro (id, titulo, autor, anio, genero) {
     let nuevoLibro = {id: id, título: titulo, autor: autor, año: anio, género: genero, disponible: true}; 
-    libros.push (nuevoLibro);
+    libros.push (nuevoLibro);            //utilizo el método push para subir un nuevo libro al array                                                                 
     console.log(`Se agregó el libro: ${nuevoLibro.título}`);    
 }
 
 agregarLibro(11, "Cien años de soledad", "Gabriel García Márquez", 1967, "Novela");
 console.table (libros);     
-//yo se que console.table no vimos en clase pero busque en internet una forma más ordenado de mostrar ciertas parte y lo encontre. He ido alternando entre console.log y console.table
-// para mostrar las listas(arrays). También probé con consol.dir pero en cambio todo se hacia demasiado compacto y decidí no usarlo.
+//yo sé que console.table no vimos en clase pero busque en internet una forma más ordenado de mostrar ciertas parte y lo encontre. He ido alternando entre 
+//console.log console.table para mostrar las listas(arrays). También probé con consol.dir pero en cambio todo se hacia demasiado compacto y decidí no usarlo.
 
 //b) Crear una función buscarLibro(criterio, valor) que permita buscar libros por título, autor o género utilizando el algoritmo de búsqueda lineal.
 function buscarLibro(criterio, valor){
@@ -60,7 +60,8 @@ buscarLibro("autor", "George Orwell");
 buscarLibro("título", "Blood type");
 buscarLibro("género", "Novela corta");
 
-//c) Desarrollar una función ordenarLibros(criterio) que ordene los libros por título o año utilizando el algoritmo de ordenamiento burbuja (bubble sort) y luego muestre los libros ordenados en la consola.
+//c) Desarrollar una función ordenarLibros(criterio) que ordene los libros por título o año utilizando el algoritmo de ordenamiento burbuja (bubble sort) y luego 
+//muestre los libros ordenados en la consola.
 function ordenarLibros (criterio){
 
     if (criterio !== "título" && criterio !== "año"){
@@ -72,7 +73,8 @@ function ordenarLibros (criterio){
     for (let i=0 ; i<libros.length ; i++){
         for (let j=0 ; j<libros.length - i -1; j++){
             if (libros [j][criterio] > libros[j + 1][criterio]){
-                let temp = libros [j];  //uso una variable temporal llamada temp para guardar temporalmente el libro de la posición en j y poder intercambiarlo.
+                let temp = libros [j]; 
+                 //uso una variable temporal llamada temp para guardar temporalmente el libro de la posición en j y poder intercambiarlo.
                 libros[j] = libros [j+1];
                 libros[j+1] = temp; 
              }
@@ -107,13 +109,12 @@ console.table(libros);
 
 
 
-
-
-//3. GESTIÓN DE USUARIOS ---------------------------------------------------------------------------------------------------------------------------------
+//3. GESTIÓN DE USUARIOS -----------------------------------------------------------------------------------------------------------------------------------------------
 //a) Implementar una función registrarUsuario(nombre, email) que agregue un nuevo usuario al array usuarios.
 
 function registrarUsuario (nombre, email) {
-    let nuevoUsuario = {id: usuarios.length +1, nombre:"Leonardo", email: "leoC_Judo@gmail.com", librosPrestados: [] };  //Aqui para que se actualice automaticamente cada id le agregué length +1
+    let nuevoUsuario = {id: usuarios.length +1, nombre:"Leonardo", email: "leoC_Judo@gmail.com", librosPrestados: [] }; 
+     //Aqui para que se actualice automaticamente cada id le agregué length +1
     usuarios.push(nuevoUsuario);
     console.log(`Se agregó el usuario: ${nuevoUsuario.nombre}`);
 }
@@ -126,7 +127,7 @@ registrarUsuario("Leonardo", "leoC_Judo@gmail.com");
 
 function mostrarTodosLosUsuarios () {
     console.log("Los usuarios registrados son: ");
-    console.table(usuarios); //-----------------------------------
+    console.table(usuarios); 
 }
 
 mostrarTodosLosUsuarios();
@@ -161,10 +162,10 @@ function borrarUsuario(nombre, email) {
     });
 
     if(usuarios.length === usuariosActualizados.length){
-        console.log (`El usuario con nombre ${nombre} y correo ${email} no se puede eliminar. No se encontró en la lista. `)
+        console.log (`El usuario con nombre ${nombre} y correo ${email} no se puede eliminar. No se encontró en la lista. `);
     }else {
         usuarios = usuariosActualizados;
-        console.log (`El usuario con nombre ${nombre} y con email ${email} se ha eliminado. `)
+        console.log (`El usuario con nombre ${nombre} y con email ${email} se ha eliminado. `);
     }
 }
 
@@ -174,13 +175,13 @@ borrarUsuario("Rose", "rose_94@gmail.com" );
 console.table(usuarios);   
 
 
-//4. SISTEMA DE PRÉSTAMOS --------------------------------------------------------------------------------------------------------------------------------------
-//a) Desarrollar una función prestarLibro(idLibro, idUsuario) que marque un libro como no disponible y lo agregue a la lista de libros prestados
-//del usuario.
+//4. SISTEMA DE PRÉSTAMOS ---------------------------------------------------------------------------------------------------------------------------------------------
+//a) Desarrollar una función prestarLibro(idLibro, idUsuario) que marque un libro como no disponible y lo agregue a la lista de libros prestados del usuario.
 
 function prestarLibro (idLibro, idUsuario){ 
 
-    const libroEncontrado = libros.find(function(libro){    //busco el libro en el array libros
+    const libroEncontrado = libros.find(function(libro){    
+        //busco el libro en el array libros
         return libro.id === idLibro;
     });
     
@@ -217,7 +218,8 @@ prestarLibro(9,1);
 //b) Implementar una función devolverLibro(idLibro, idUsuario) que marque un libro como disponible y lo elimine de la lista de libros prestados del usuario.
 
 
-   function devolverlibro (idLibro, idUsuario){                             //Profe si esta leyendo esto: no se si esta bien repetir bloques pero aqui yo crei conveniente reutilizar la primera parte de la función donde se verifica el idLibro y el idUauario.
+   function devolverlibro (idLibro, idUsuario){           
+    //Profe si esta leyendo esto: no se si esta bien repetir bloques pero aqui yo crei conveniente reutilizar la primera parte de la función donde se verifica el idLibro y el idUauario.
      
     
     const libroEncontrado = libros.find(function(libro){
@@ -243,7 +245,8 @@ prestarLibro(9,1);
         return;
     }
 
-    usuarioEncontrado.librosPrestados = usuarioEncontrado.librosPrestados.filter(function (id){    // checamos si el usuario tiene el libro prestado
+    usuarioEncontrado.librosPrestados = usuarioEncontrado.librosPrestados.filter(function (id){    
+        // checamos si el usuario tiene el libro prestado
         return id !== idLibro; //
     });
 
@@ -258,17 +261,18 @@ devolverlibro (2,4);
 console.table(libros);
 console.table(usuarios);
    
-//5. REPORTES
+//5. REPORTES ----------------------------------------------------------------------------------------------------------------------------------------------------------
 //a) Crear una función generarReporteLibros() que utilice métodos avanzados de arrays (.map(), .filter(), .reduce()) para generar un reporte con la siguiente información:
 //✓ Cantidad total de libros. ✓ Cantidad de libros prestados. ✓ Cantidad de libros por género. ✓ Libro más antiguo y más nuevo.
 
 
 function generarReporteLibros() {
 
-    let cantidadTotalLibros = libros.reduce(function(acumulador){           //Uso reduce para contar los libros del array.      
-        return acumulador + 1;                                              //Dice acumulador porque cuando usamos el metodo reduce, necesitamos ese acumulador para ir guardando lo elementos que se van contando.
+    let cantidadTotalLibros = libros.reduce(function(acumulador){                
+        return acumulador + 1;                                              
     }, 0);
-
+    //Uso reduce para contar los libros del array. 
+    //Dice acumulador porque cuando usamos el metodo reduce, necesitamos ese acumulador para ir guardando lo elementos que se van contando.
     console.log(`La cantidad total de libros es: ${cantidadTotalLibros} `); 
 
     let cantidadLibrosPrestados = libros.filter(function(libro){
@@ -283,7 +287,8 @@ function generarReporteLibros() {
     console.log("La cantidad de libros por género es:");
     
         
-    let géneros = [...new Set(libros.map(function(libro) {      //Aqui uso el método new Set() se utiliza para crear un conjunto (set), que almacena solo valores únicos.
+    let géneros = [...new Set(libros.map(function(libro) {      
+        //Aqui uso el método new Set() se utiliza para crear un conjunto (set), que almacena solo valores únicos.
         return libro.género;
         }))];
     
@@ -317,18 +322,48 @@ function generarReporteLibros() {
 
 generarReporteLibros();
 console.log("Reporte de Libros:");
-console.log("Libro más antiguo:");
+console.log("El libro más antiguo es:");
 console.table(libroAntiguoYNuevo.masAntiguo);
-console.log("Libro más nuevo:");
+console.log("El libro más nuevo es:");
 console.table(libroAntiguoYNuevo.masNuevo);
 
 
 
-//6. IDENTIFICACIÓN AVANZADA DE LIBROS
+//6. IDENTIFICACIÓN AVANZADA DE LIBROS --------------------------------------------------------------------------------------------------------------------------------
 //a) Implementar una función librosConPalabrasEnTitulo() que identifique y muestre todos los libros cuyo título contiene más de una palabra
 //(no títulos que contengan números ni otros caracteres).
 
 
+function librosConPalabrasEnTitulo() {  
+
+let títulosPermitidos = libros.filter(function(libro){
+let títulosPalabras = libro.título.split(" ");
+let tieneMasDeUnaPalabra = títulosPalabras.length > 1;
+
+let admitido = /^[a-zA-Z\s]+$/.test(libro.título);
+// el método .test() es para realizar validaciones en cadenas de texto.
+//y antes de eso entre slash se especifica lo que se va a permitir en el texto.
+return (tieneMasDeUnaPalabra && admitido);
+});
+
+
+//b) La función debe devolver un array con los títulos de esos libros y mostrarlo en la consola.
+
+
+let títulos = títulosPermitidos.map(function(libro) {
+    return libro.título;
+});
+
+
+console.log("Títulos admitidos (array):");
+console.log(títulos);
+console.log("Detalles completos de los libros admitidos:");
+console.table(títulosPermitidos);
+
+return títulos;
+}
+
+librosConPalabrasEnTitulo() 
 
 
 
@@ -337,37 +372,7 @@ console.table(libroAntiguoYNuevo.masNuevo);
 
 
 
-
-
-
-
-
-
-
-
-//b) La función debe devolver un array con los títulos de esos libros y
-//mostrarlo en la consola.
-
-
-
-
-
-
-
-
-
-
-//node trabajoPracticoIntegrador_AvilaRosa.js 
-
-
-
-
-
-
-
-
-
-
+//node trabajoPracticoIntegrador_AvilaRosa.js
 
 
 
